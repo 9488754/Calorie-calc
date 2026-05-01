@@ -7,7 +7,7 @@ export type food = {
   
   export const foods: food[] = [
     {
-      name: "Apple",
+      name: "Jabłko",
       image: "/images/apple.png",
       alt: "zdjecie jablka",
       caloriesPer1g: 0.53,
