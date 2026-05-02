@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { foods, food } from "./data/foods";
 
-const WEIGHT_OPTIONS = [1, 5, 50, 100];
+const WEIGHT_OPTIONS = [30, 50, 100];
 
 export default function Home() {
   const [selected, setSelected] = useState<food | null>(null);
@@ -16,12 +16,12 @@ export default function Home() {
   const selectedCalories = selected ? selected.caloriesPer1g * activeWeight : 0;
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4">
-      <h1 className="text-3xl font-bold mb-10 text-gray-800">
+    <main className="min-h-screen bg-gray-50 flex flex-col items-center py-4 px-1 sm:px-4 ">
+      <h1 className="text-xl font-bold mb-5 text-gray-800 sm:text-4xl sm:mb-10">
         Calorie Calculator
       </h1>
 
-      <div className="grid gap-2 mb-12 w-full px-2 items-center" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(80px, 1fr))" }}>
+      <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-10 gap-2 mb-12 w-full px-2">
           {foods.map((food) => {
           const isSelected = selected?.name === food.name;
           return (
@@ -44,8 +44,8 @@ export default function Home() {
                 />
               </div>
              
-              <span className="font-stretch-condensed text-xs sm:text-sm,  text-gray-400">
-                {Math.round(food.caloriesPer1g * 100)} kcal/100g
+              <span className="font-stretch-condensed text-xs sm:text-xl sm:font-stretch-expanded  text-gray-400">
+                {Math.round(food.caloriesPer1g * 100)} kcal
               </span>
             </div>
           );
@@ -53,12 +53,9 @@ export default function Home() {
       </div> {}
 
       {selected && (
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-700 mb-1">
-            {selected.name}
-          </h2>
+        <div className="w-[80vw] bg-white rounded-2xl shadow-md p-6"> 
 
-          <div className="flex items-center gap-2 mb-4 mt-3">
+          <div className="flex items-center gap-2 mb-4 mt-3 ">
             <label className="text-sm text-gray-500">Weight:</label>
             <select
               value={isCustom ? "custom" : weight}
@@ -93,9 +90,8 @@ export default function Home() {
             </span>
           </div>
 
-          <p className="text-sm text-gray-400 mb-5">Equivalent weights:</p>
 
-          <ul className="grid grid-cols-2 sm:grid-cols-1 gap-3">
+          <ul className="grid grid-cols-3 sm:grid-cols-4 gap-3 ">
             {foods
               .filter((f: food) => f.name !== selected.name)
               .map((f: food) => {
@@ -103,9 +99,9 @@ export default function Home() {
                 return (
                   <li
                     key={f.name}
-                    className="flex flex-col sm:flex-row items-center bg-gray-50 rounded-xl px-3 py-3 gap-2"
+                    className="flex flex-col items-center bg-gray-50 rounded-xl px-5 py-5 gap-2"
                   >
-                    <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 pointer-events-none">
+                    <div className="relative w-12 h-12 lg:w-36 lg:h-36 rounded-lg overflow-hidden shrink-0 pointer-events-none">
                       <Image
                         src={f.image}
                         alt={f.alt}
@@ -113,10 +109,8 @@ export default function Home() {
                         className="object-cover"
                       />
                     </div>
-                    <span className="text-gray-700 font-medium flex-1">
-                      {f.name}
-                    </span>
-                    <span className="text-green-600 font-semibold">
+
+                    <span className="text-green-600 font-semibold lg:text-xl">
                       {equivalentG.toFixed(1)}g
                     </span>
                   </li>
