@@ -99,7 +99,7 @@ export default function Home() {
             {foods
               .filter((f: food) => f.name !== selected.name)
               .map((f: food) => {
-                const equivalentG = selectedCalories / f.caloriesPer1g;
+                const equivalentG = Math.round(selectedCalories / f.caloriesPer1g);
                 return (
                   <li
                     key={f.name}
@@ -117,7 +117,7 @@ export default function Home() {
                       {f.name}
                     </span>
                     <span className="text-green-600 font-semibold">
-                      {Math.round(equivalentG.toFixed(1))}g
+                      {equivalentG.toFixed(1)}g
                     </span>
                   </li>
                 );
