@@ -44,7 +44,7 @@ export default function Home() {
                 />
               </div>
              
-              <span className="text-xs sm:text-sm text-gray-400">
+              <span className="font-stretch-condensed text-xs sm:text-sm,  text-gray-400">
                 {Math.round(food.caloriesPer1g * 100)} kcal/100g
               </span>
             </div>
@@ -117,7 +117,7 @@ export default function Home() {
                       {f.name}
                     </span>
                     <span className="text-green-600 font-semibold">
-                      {equivalentG.toFixed(1)}g
+                      {Math.round(equivalentG.toFixed(1))}g
                     </span>
                   </li>
                 );
