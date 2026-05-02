@@ -46,15 +46,6 @@ export type food = {
         caloriesPer1g: 0.66,
       },
 
-
-      {
-        name: "Borowki",
-        image: "/images/blueberry.png",
-        alt: "zdjecie borowek",
-        caloriesPer1g: 0.57,
-      },
-
-
       {
         name: "Kiwi",
         image: "/images/kiwi.png",
