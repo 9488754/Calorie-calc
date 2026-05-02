@@ -22,23 +22,23 @@ export default function Home() {
   const items = isFruits ? foods : vegetables;
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center mt-2 px-1 sm:px-4 ">
+    <main className="min-h-screen bg-gray-50 flex flex-col items-center  px-1 sm:px-4 ">
       <div className="flex flex-row items-center gap-4 mb-2">
-  <span className={`text-xl sm:text-2xl font-bold transition-all duration-200 ${isFruits ? "text-gray-800" : "text-gray-300"}`}>
+  <span className={`text-xl mt-2 sm:text-2xl font-bold transition-all duration-200 ${isFruits ? "text-gray-800" : "text-gray-300"}`}>
     Fruits
   </span>
 
   <button
     onClick={() => { setIsFruits(!isFruits); setSelected(null); }}
-    className="relative flex-shrink-0 w-14 h-7 bg-gray-200 rounded-full transition-all duration-200"
+    className="relative flex-shrink-0 w-14 h-7 mt-2 bg-gray-200 rounded-full transition-all duration-200"
   >
     <span
-      className="absolute top-1 w-5 h-5 bg-white rounded-full shadow transition-all duration-200"
+      className="absolute top-1 w-5 h-5  bg-white rounded-full shadow transition-all duration-200"
       style={{ left: isFruits ? "4px" : "calc(100% - 24px)" }}
     />
   </button>
 
-  <span className={`text-xl sm:text-2xl font-bold transition-all duration-200 ${!isFruits ? "text-gray-800" : "text-gray-300"}`}>
+  <span className={`text-xl sm:text-2xl mt-2 font-bold transition-all duration-200 ${!isFruits ? "text-gray-800" : "text-gray-300"}`}>
     Vegetables
   </span>
 </div>
