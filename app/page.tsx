@@ -47,7 +47,7 @@ export default function Home() {
                 {food.name}
               </span>
               <span className="text-sm text-gray-400">
-                {food.caloriesPer1g * 100} kcal/100g
+                {Math.round(food.caloriesPer1g * 100)} kcal/100g
               </span>
             </div>
           );
@@ -60,7 +60,6 @@ export default function Home() {
             {selected.name}
           </h2>
 
-          {/* Weight selector */}
           <div className="flex items-center gap-2 mb-4 mt-3">
             <label className="text-sm text-gray-500">Weight:</label>
             <select
