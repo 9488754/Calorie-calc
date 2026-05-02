@@ -12,7 +12,7 @@ export default function Home() {
   const [customWeight, setCustomWeight] = useState<string>("");
   const [isCustom, setIsCustom] = useState<boolean>(false);
   type Easing = "linear" | "ease-out" | "ease-in-out" | "ease-in";
-  const [easing, setEasing] = useState<Easing>("ease-in-out");
+  const [easing, setEasing] = useState<Easing>("ease-in");
   
   const easings: Easing[] = ["linear", "ease-out", "ease-in-out", "ease-in"];
   const activeWeight = isCustom ? (parseFloat(customWeight) || 0) : weight;
@@ -24,19 +24,7 @@ export default function Home() {
         Calorie Calculator
       </h1>
       <div className="flex gap-2 mb-6">
-  {easings.map((e) => (
-    <button
-      key={e}
-      onClick={() => setEasing(e)}
-      className={`px-3 py-1 rounded-full text-sm border transition-all ${
-        easing === e
-          ? "bg-green-500 text-white border-green-500"
-          : "bg-white text-gray-600 border-gray-200"
-      }`}
-    >
-      {e}
-    </button>
-  ))}
+
 </div>
       <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-10 gap-2 mb-12 w-full px-2">
           {foods.map((food) => {
@@ -78,6 +66,35 @@ export default function Home() {
       {selected && (
         <div className="w-full bg-white rounded-2xl shadow-md p-6"> 
 
+          
+
+
+          <ul className="grid grid-cols-5 sm:grid-cols-5 gap-3 w-full  ">
+            {foods
+              .filter((f: food) => f.name !== selected.name)
+              .map((f: food) => {
+                const equivalentG = Math.round(selectedCalories / f.caloriesPer1g);
+                return (
+                  <li
+                    key={f.name}
+                    className="flex flex-col items-center bg-gray-50 rounded-xl px-3 w-full gap-2"
+                  >
+                    <div className="relative w-16 h-16 lg:w-36 lg:h-36 rounded-lg overflow-hidden shrink-0 pointer-events-none">
+                      <Image
+                        src={f.image}
+                        alt={f.alt}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+
+                    <span className="text-green-700 font-semibold lg:text-xl">
+                      {equivalentG}g
+                    </span>
+                  </li>
+                );
+              })}
+          </ul>
           <div className="flex items-center gap-2 mb-4 mt-3 ">
             <label className="text-sm text-gray-500">Weight:</label>
             <select
@@ -112,34 +129,6 @@ export default function Home() {
               = {selectedCalories.toFixed(1)} kcal
             </span>
           </div>
-
-
-          <ul className="grid grid-cols-5 sm:grid-cols-5 gap-3 w-full  ">
-            {foods
-              .filter((f: food) => f.name !== selected.name)
-              .map((f: food) => {
-                const equivalentG = Math.round(selectedCalories / f.caloriesPer1g);
-                return (
-                  <li
-                    key={f.name}
-                    className="flex flex-col items-center bg-gray-50 rounded-xl px-3 w-full gap-2"
-                  >
-                    <div className="relative w-16 h-16 lg:w-36 lg:h-36 rounded-lg overflow-hidden shrink-0 pointer-events-none">
-                      <Image
-                        src={f.image}
-                        alt={f.alt}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-
-                    <span className="text-green-700 font-semibold lg:text-xl">
-                      {equivalentG}g
-                    </span>
-                  </li>
-                );
-              })}
-          </ul>
         </div>
       )}
     </main>
