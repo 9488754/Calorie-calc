@@ -91,7 +91,7 @@ export default function Home() {
           </div>
 
 
-          <ul className="grid grid-cols-3 sm:grid-cols-4 gap-3 ">
+          <ul className="grid grid-cols-4 sm:grid-cols-5 gap-3 ">
             {foods
               .filter((f: food) => f.name !== selected.name)
               .map((f: food) => {
