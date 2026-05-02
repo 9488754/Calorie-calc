@@ -25,7 +25,7 @@ export type food = {
       caloriesPer1g: 0.32,
     },
     {
-      name: "Borowki",
+      name: "Borówki",
       image: "/images/blueberry.png",
       alt: "zdjecie borowek",
       caloriesPer1g: 0.57,
@@ -33,7 +33,7 @@ export type food = {
 
     {
         name: "Czarna porzeczka",
-        image: "/images/blackberry.png",
+        image: "/images/blackcurrant.png",
         alt: "zdjecie porzeczek",
         caloriesPer1g: 0.43,
       },
