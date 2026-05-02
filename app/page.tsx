@@ -11,7 +11,10 @@ export default function Home() {
   const [weight, setWeight] = useState<number>(100);
   const [customWeight, setCustomWeight] = useState<string>("");
   const [isCustom, setIsCustom] = useState<boolean>(false);
-
+  type Easing = "linear" | "ease-out" | "ease-in-out" | "ease-in";
+  const [easing, setEasing] = useState<Easing>("ease-in-out");
+  
+  const easings: Easing[] = ["linear", "ease-out", "ease-in-out", "ease-in"];
   const activeWeight = isCustom ? (parseFloat(customWeight) || 0) : weight;
   const selectedCalories = selected ? selected.caloriesPer1g * activeWeight : 0;
 
@@ -20,18 +23,38 @@ export default function Home() {
       <h1 className="text-xl font-bold mb-5 text-gray-800 sm:text-4xl sm:mb-10">
         Calorie Calculator
       </h1>
-
+      <div className="flex gap-2 mb-6">
+  {easings.map((e) => (
+    <button
+      key={e}
+      onClick={() => setEasing(e)}
+      className={`px-3 py-1 rounded-full text-sm border transition-all ${
+        easing === e
+          ? "bg-green-500 text-white border-green-500"
+          : "bg-white text-gray-600 border-gray-200"
+      }`}
+    >
+      {e}
+    </button>
+  ))}
+</div>
       <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-10 gap-2 mb-12 w-full px-2">
           {foods.map((food) => {
           const isSelected = selected?.name === food.name;
+          const isUnselected = selected !== null && !isSelected;
           return (
             <div
               key={food.name}
               onClick={() => setSelected(isSelected ? null : food)}
-              style={{ cursor: "pointer" }}
-              className={`flex flex-col items-center rounded-2xl p-2 sm:p-5 transition-all duration-200 border-2 ${
+              style={{
+                cursor: "pointer",
+                transform: isSelected ? "scale(1.05)" : isUnselected ? "scale(0.75)" : "scale(1)",
+                transition: `all 200ms ${easing}`,
+                opacity: isUnselected ? 0.5 : 1,
+              }}
+              className={`flex flex-col items-center rounded-2xl p-2 sm:p-5 border-2 ${
                 isSelected
-                  ? "border-green-500 bg-green-50 shadow-lg scale-105"
+                  ? "border-green-500 bg-green-50 shadow-lg"
                   : "border-transparent bg-white shadow"
               }`}
             >
@@ -53,7 +76,7 @@ export default function Home() {
       </div> {}
 
       {selected && (
-        <div className="w-[80vw] bg-white rounded-2xl shadow-md p-6"> 
+        <div className="w-full bg-white rounded-2xl shadow-md p-6"> 
 
           <div className="flex items-center gap-2 mb-4 mt-3 ">
             <label className="text-sm text-gray-500">Weight:</label>
@@ -91,7 +114,7 @@ export default function Home() {
           </div>
 
 
-          <ul className="grid grid-cols-4 sm:grid-cols-5 gap-3 ">
+          <ul className="grid grid-cols-5 sm:grid-cols-5 gap-3 w-full  ">
             {foods
               .filter((f: food) => f.name !== selected.name)
               .map((f: food) => {
@@ -99,19 +122,19 @@ export default function Home() {
                 return (
                   <li
                     key={f.name}
-                    className="flex flex-col items-center bg-gray-50 rounded-xl px-5 py-5 gap-2"
+                    className="flex flex-col items-center bg-gray-50 rounded-xl px-3 w-full gap-2"
                   >
-                    <div className="relative w-12 h-12 lg:w-36 lg:h-36 rounded-lg overflow-hidden shrink-0 pointer-events-none">
+                    <div className="relative w-16 h-16 lg:w-36 lg:h-36 rounded-lg overflow-hidden shrink-0 pointer-events-none">
                       <Image
                         src={f.image}
                         alt={f.alt}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
 
-                    <span className="text-green-600 font-semibold lg:text-xl">
-                      {equivalentG.toFixed(1)}g
+                    <span className="text-green-700 font-semibold lg:text-xl">
+                      {equivalentG}g
                     </span>
                   </li>
                 );
