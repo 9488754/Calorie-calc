@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center py-4 px-1 sm:px-4 ">
-      <h1 className="text-xl font-bold mb-5 text-gray-800 sm:text-4xl sm:mb-10">
+      <h1 className="text-xl font-bold mb-5 text-gray-800 sm:text-4xl ">
         Calorie Calculator
       </h1>
       <div className="flex gap-2 mb-6">
@@ -68,7 +68,11 @@ export default function Home() {
 
           
 
-
+          <div className="hidden">
+            {foods.map((f) => (
+              <Image key={f.name} src={f.image} alt="" fill={false} width={1} height={1} />
+            ))}
+          </div>
           <ul className="grid grid-cols-5 sm:grid-cols-5 gap-3 w-full  ">
             {foods
               .filter((f: food) => f.name !== selected.name)
